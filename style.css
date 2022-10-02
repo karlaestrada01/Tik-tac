@@ -1,0 +1,161 @@
+/* starting out with mobile first design */
+.body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.post-feed {
+    background-color: lightpink;
+    border: 2px solid black;
+    max-width: 600px;
+    height: 800px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.feed-btns-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    position: absolute;
+    top: 30%;
+    transform: translateY(-30%);
+    
+}
+.feed-btn {
+    border-radius: 50%;
+    margin: 0 8px;
+    border: 2px solid black;
+    background-color: transparent;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+}
+.feed-item {
+    height: 300px;
+    width: 400px;
+    margin: 20px auto;
+    background: white;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-container {
+
+    position: absolute;
+    top: 30%;
+    transform: translateY(-30%);
+
+
+}
+.post-content {
+    box-sizing: border-box;
+    background-color: black;
+    width: 400px;
+    height: 500px;
+    margin: 5px auto;
+    padding: 10px
+}
+.profile-pic {
+    width: 40px;
+    height: auto;
+    border-radius: 50%;
+    margin: 5px 0px 5px 5px;
+    padding: 5px 8px;
+    
+}
+
+.post-video {
+    display: block;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    margin: 5px auto;
+}
+.post-hidden {
+    display: none;
+    background-color: black;
+}
+.post-visible {
+  display: block;
+}
+#btn-prev:disabled {
+    border: 2px solid gray;
+    color: gray;
+    cursor: not-allowed
+}
+.post-footer {
+    display: flex;
+    border: 2px solid white;
+  
+    color: white;
+    width: 95%;
+    margin: 30px auto 5px auto;
+    
+}
+.post-footer p {
+    margin-left: 5px;
+    padding-top: 10px
+}
+.post-icons {
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 0;
+    margin: 10px 0;
+   
+}
+.icon-container {
+
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
+.liked-heart {
+    color: red;
+}
+
+.shared-icon {
+    color: green;
+
+}
+.hidden-comments {
+   display: none;
+}
+.commentSection{
+
+    height: 200px;
+    width: 400px;
+    box-sizing: border-box;
+    padding: 0px;
+   
+    position: absolute;
+    top: 0;
+    right:0;
+    left:0; 
+    bottom: 0;
+    margin: auto;
+
+
+    background-color: gray;
+}
+.commentSection h1 {
+    font-size: 50px;
+    color: red;
+}
+#commentSection{
+
+}
+.hidden {
+    display: none;
+   
+}
+.comment-visible {
+  display: block;
+}
