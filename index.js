@@ -1,4 +1,12 @@
+/**
+ * Author: Karla Estrada
+ * Version: 1.0
+ * Description: Tik-Tac is my personalized adaption of Tik tok.
+ * Date: 10-03-2022
+ */
+
 import { feedData } from "./data.js";
+import {commentorObj} from "./data.js";
 
 let postContainer = document.getElementById("post-container")
 const btnPrev = document.getElementById("btn-prev")
@@ -7,38 +15,73 @@ const btnNext = document.getElementById("btn-next")
 let positionCount = 0;
 let visibility;
 const commentSection = document.getElementById("commentSection")
+
+/**
+ * Renders out the feed based on the post's attributes
+ * 
+ */
 function renderFeed() {
     let str = ""
     let likedHeart = ""
     let savedIcon = "fa-regular"
     let sharedIcon = ""
     let commentsReplies = ""
+    let copiedItem = "feedItem"
+
     for (let i = 0; i < feedData.length; i++) {
 
-        visibility = `post-hidden`
+        let feedItem = feedData[i]
+        
         if (i === positionCount) {
             visibility = `post-visible`
         }
-        if (feedData[i].isLiked) {
+        else {
+            visibility = `post-hidden`
+        }
+        if (feedItem.isLiked) {
             likedHeart = "liked-heart"
         }
+        else {
+            likedHeart = ""
+        }
 
-        if (feedData[i].isSaved) {
+        if (feedItem.isSaved) {
             savedIcon = "fa-solid"
         }
-        if (feedData[i].isShared) {
+        else {
+            savedIcon = "fa-regular"
+        }
+        
+        if (feedItem.isShared) {
             sharedIcon = "shared-icon"
+            copiedItem = `<p id="reply-message">Copied to clipboard!</p>`
+
+        }
+        else {
+            sharedIcon = ""
+            copiedItem = ""
         }
 
 
         commentsReplies = ``
-
-        if (feedData[i].comments.length > 0) {
-            feedData[i].comments.forEach(function (reply) {
+        let count = 0;
+        if (feedItem.comments.length > 0) {
+            feedItem.comments.forEach(function (reply) {
                 commentsReplies +=
                     `
-                <p>no comments</p>
-                <h1>IDLK BRUH</h1>
+                <div class="reply-container">
+                    <div id="message-info">
+                        <img src="${reply.commentorImg}"
+                        <p>${reply.commentor}</p>
+                    </div>
+                    
+                    <div id="message-container">
+                        <p>${reply.message}</p>
+                        
+                       
+                    </div>
+                </div>
+                
                 `
 
             })
@@ -46,8 +89,13 @@ function renderFeed() {
         else {
             commentsReplies +=
                 `
-                <p>no commenfdkadsfts</p>
-                <h1>IDLK BRfkdsahfdlUH</h1>
+                <div id="no-message">
+                        <p>No comments yet</p>
+                        <form id="comment-form">
+                            <input type="text" id="reply" name="reply" placeholder="Leave a comment...">
+                            <button type="submit">Submit</button>
+                        </form>
+                </div>
                 `
 
         }
@@ -55,82 +103,65 @@ function renderFeed() {
             `
             <div class="post-content ${visibility}" id="post-content">
                 <div>
-                    <img class="post-video" src="${feedData[i].postedVid}">
+                    <img class="post-video" src=${feedItem.postedVid} alt=${feedItem.altImg}>
                 
 
                 </div>
                 <div class="post-footer">
-                    <img class="profile-pic" src="${feedData[i].profilePic}">
-                    <p>${feedData[i].caption}</p>
+                    <img class="profile-pic" src="${feedItem.profilePic}">
+                    <div>
+                        <p>${feedItem.username}</p>
+                        <p id="caption">${feedItem.caption}</p>
+                    </div>
                 </div>
                 <div class="post-icons">
                     <span class="icon-container">
                     
-                        <i class="fa-solid fa-heart ${likedHeart}" data-like='${feedData[i].uuid}'></i>${feedData[i].likes}
+                        <i class="fa-solid fa-heart ${likedHeart}" data-like='${feedItem.uuid}'></i>${feedItem.likes}
                     </span>
                     <span class="icon-container">
-                        <i class="fa-solid fa-comment-dots" data-comment='${feedData[i].uuid}'></i>${feedData[i].comments.length}
+                        <i class="fa-solid fa-comment-dots" data-comment='${feedItem.uuid}'></i>${feedItem.comments.length}
                     </span>
                         
                     <span class="icon-container">
-                        <i class=" fa-bookmark ${savedIcon}" data-bookmark='${feedData[i].uuid}'></i>${feedData[i].saves}
+                        <i class=" fa-bookmark ${savedIcon}" data-bookmark='${feedItem.uuid}'></i>${feedItem.saves}
                     </span>
                     
                     <span class="icon-container">
-                        <i class=" fa-solid fa-share ${sharedIcon} " data-save='${feedData[i].uuid}'></i>${feedData[i].shares}
+                        <i class=" fa-solid fa-share ${sharedIcon} " data-save='${feedItem.uuid}'></i>${feedItem.shares}
+                        
                     </span>
-
-
-                    
+  
                 </div>
-                <div class="commentSection hidden" id="comments-${feedData[i].uuid}">
-                ${commentsReplies}
-                </div>
-            
-                
-                 
-            </div>
-           
+                    ${copiedItem}
+                <div class="commentSection hidden" id="comments-${feedItem.uuid}">
+                    ${commentsReplies}
+                </div>   
+            </div>         
             `
-
-
-
-        postContainer.innerHTML = str;
-
-        // const commentSection =  document.getElementById("commentSection")
-        // let postComments=``
-        // if(feedData[i].comments > 0){
-
-        // }
-        // else {
-        //     postComments  = `
-        //     <p>no comments</p>
-        //     <h1>IDLK BRUH</h1>`
-
-        // }
-        // commentSection.innerHTML = postComments
+        postContainer.innerHTML = str;  
     }
-    //return str;
 }
 
-function render() {
-    postContainer.innerHTML = renderFeed();
-}
 renderFeed();
-const postArray = document.getElementsByClassName("post-content");
 
+const postArray = document.getElementsByClassName("post-content")
 const postContent = document.getElementById("post-content")
+/**
+ * Removes visibility of each post
+ */
 function removeVisibility() {
     for (let post of postArray) {
         post.classList.remove("post-visible")
         post.classList.add("post-hidden")
     }
 }
-
+/**
+ * Event listener when the next button is pressed
+ */
 btnNext.addEventListener("click", function () {
     removeVisibility();
     btnPrev.disabled = false;
-
     if (positionCount === postArray.length - 1) {
         positionCount = 0;
     }
@@ -140,11 +171,13 @@ btnNext.addEventListener("click", function () {
     postArray[positionCount].classList.add("post-visible")
 
 })
+/**
+ * Event listener when the previous button is pressed
+ */
 btnPrev.addEventListener("click", function () {
 
     if (positionCount === 0) {
         btnPrev.disabled = true;
-
     }
     else {
         removeVisibility();
@@ -153,33 +186,40 @@ btnPrev.addEventListener("click", function () {
     }
 })
 
+/**
+ * Event listener for any of the icons
+ * @param e 
+ *      data set attrbute
+ */
 postContainer.addEventListener("click", function (e) {
-
+    const targetDataSet = e.target.dataset;
     let datasetAttr = ""
-    if (e.target.dataset.like) {
-        console.log("like")
+    if (targetDataSet.like) {
         datasetAttr = "like"
-        updateIcons(e.target.dataset.like, datasetAttr)
+        updateIcons(targetDataSet.like, datasetAttr)
     }
-    else if (e.target.dataset.comment) {
-        console.log("comment")
+    else if (targetDataSet.comment) {
         datasetAttr = "comment"
 
-        updateIcons(e.target.dataset.comment, datasetAttr)
+        updateIcons(targetDataSet.comment, datasetAttr)
     }
-    else if (e.target.dataset.bookmark) {
-        console.log("bookamrk")
+    else if (targetDataSet.bookmark) {
         datasetAttr = "bookmark"
-        updateIcons(e.target.dataset.bookmark, datasetAttr)
+        updateIcons(targetDataSet.bookmark, datasetAttr)
     }
-    else if (e.target.dataset.save) {
-        console.log("save")
+    else if (targetDataSet.save) {
         datasetAttr = "save"
-        updateIcons(e.target.dataset.save, datasetAttr)
+        updateIcons(targetDataSet.save, datasetAttr)
     }
 })
 
-
+/**
+ * Each icon is updated when pressed
+ * @param {*} postID 
+ *          the uuid of the post pressed
+ * @param {*} datasetAttribute 
+ *          the attribute that was pressed
+ */
 function updateIcons(postID, datasetAttribute) {
 
     const postObj = feedData.filter(function (post) {
@@ -194,15 +234,19 @@ function updateIcons(postID, datasetAttribute) {
             postObj.likes++;
         }
         postObj.isLiked = !postObj.isLiked
+        renderFeed();
     }
     else if (datasetAttribute === "comment") {
-        //removeCommentVisibility();
-        //const commentSec = document.getElementById("commentSection")
-
-        //commentArray[positionCount].classList.add("comment-visible");
-        console.log(`comment-${postID}`)
-        document.getElementById(`comments-${postID}`).classList.toggle('hidden')
-
+        const commentForm = document.getElementById("comment-form")
+        commentForm.addEventListener('submit', function(submitted){
+            submitted.preventDefault()
+            const commentFormData = new FormData(commentForm)
+            const commentMessage = commentFormData.get("reply")
+            commentorObj.message = commentMessage;
+            postObj.comments.push(commentorObj)
+            renderFeed();
+        })
+        document.getElementById(`comments-${postID}`).classList.toggle('hidden')    
     }
     else if (datasetAttribute === "bookmark") {
         if (postObj.isSaved) {
@@ -211,8 +255,8 @@ function updateIcons(postID, datasetAttribute) {
         else {
             postObj.saves++;
         }
-        console.log("in here")
         postObj.isSaved = !postObj.isSaved
+        renderFeed();
     }
     else {
 
@@ -221,10 +265,12 @@ function updateIcons(postID, datasetAttribute) {
         }
         else {
             postObj.shares++;
+            navigator.clipboard.writeText("www.google.com")
         }
         postObj.isShared = !postObj.isShared
+        renderFeed();
     }
-   // renderFeed();
+    
 }
 
-console.log(document.getElementsByClassName("post-content"))
+

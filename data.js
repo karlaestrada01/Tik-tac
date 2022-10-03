@@ -7,7 +7,8 @@ export const feedData = [
         shares: 1,
         saves: 0,
         postedVid: "images/bunnies.webp",
-        caption: "I don't know",
+        altImg: "Two bunnies inside of two cups",
+        caption: "Two bunnies in cups",
         comments: [],
         isLiked: false,
         isShared: false,
@@ -23,22 +24,20 @@ export const feedData = [
         shares: 100,
         saves: 5,
         postedVid: "images/cat-box.webp",
-        caption: "I don't know",
+        altImg: "cat getting head stuck in container",
+        caption: "tbh same",
         comments: [
             {
-                commentor: "",
-                message: "",
-                commentorImg: "",
-                isCommentLiked: false,
-                commentLikes: 0,
+                commentor: "@Sophia90",
+                message: "Aww so cute!",
+                commentorImg: "images/bird.jpg",
 
             },
             {
-                commentor: "",
-                message: "",
-                commentorImg: "",
-                isCommentLiked: false,
-                commentLikes: 0,
+                commentor: "@harryPotter",
+                message: "😂😂😂",
+                commentorImg: "images/profile-squirrel.jpg",
+
             },
         ],
         isLiked: false,
@@ -55,7 +54,8 @@ export const feedData = [
         shares: 1,
         saves: 0,
         postedVid: "images/chicken.webp",
-        caption: "I don't know",
+        altImg: "Two bunnies inside of two cups",
+        caption: "Chicken riding on a roomba",
         comments: [],
         isLiked: false,
         isShared: false,
@@ -71,31 +71,27 @@ export const feedData = [
         shares: 1,
         saves: 0,
         postedVid: "images/dolphin.webp",
-        caption: "I don't know",
+        altImg: "A cat hits a dolphin",
+        caption: "poor dolphin",
         comments: [
             {
-                commentor: "",
-                message: "",
-                commentorImg: "",
-                isCommentLiked: false,
-                commentLikes: 0,
+                commentor: "@twilight34",
+                message: "😂😂😂",
+                commentorImg: "images/profile-girl.jpg",
+
 
             },
             {
-                commentor: "",
-                message: "",
-                commentorImg: "",
-                isCommentLiked: false,
-                commentLikes: 0,
+                commentor: "@user1234",
+                message: "LOL",
+                commentorImg: "images/couple.jpg",
+
 
             },
             {
-                commentor: "",
-                message: "",
-                commentorImg: "",
-                isCommentLiked: false,
-                commentLikes: 0,
-
+                commentor: "@Oleksandr",
+                message: "😂😂",
+                commentorImg: "images/side-pic.jpg",
             },
         ],
         isLiked: false,
@@ -111,15 +107,14 @@ export const feedData = [
         likes: 10,
         shares: 1,
         saves: 0,
-        postedVid: "images/bunnies.webp",
-        caption: "I don't know",
+        postedVid: "images/puppies.webp",
+        altImg: "Many puppies playing with one guy",
+        caption: "SO adorable!!",
         comments: [
             {
-                commentor: "",
-                message: "",
-                commentorImg: "",
-                isCommentLiked: false,
-                commentLikes: 0,
+                commentor: "@HarryPotter",
+                message: "🥰",
+                commentorImg: "images/profile-squirrel.jpg",
 
             },
         ],
@@ -132,3 +127,11 @@ export const feedData = [
     },
 
 ]
+
+export const commentorObj = {
+    commentor: "@user12444444",
+    message: "",
+    commentorImg: "images/mountain.jpg",
+   
+
+}
