@@ -265,7 +265,7 @@ function updateIcons(postID, datasetAttribute) {
         }
         else {
             postObj.shares++;
-            navigator.clipboard.writeText("www.google.com")
+            navigator.clipboard.writeText("https://spectacular-otter-0a59f8.netlify.app/")
         }
         postObj.isShared = !postObj.isShared
         renderFeed();

@@ -74,11 +74,10 @@ body {
     padding: 10px
 }
 .profile-pic {
-    width: 40px;
-    height: auto;
+    width: 40px; 
     border-radius: 50%;
-    margin: 5px 0px 5px 5px;
-    padding: 5px 8px;
+    margin: 5px 5px 5px 5px;
+    
     
 }
 
@@ -172,7 +171,6 @@ body {
 }
 .reply-container img{
     width: 40px;
-    height: auto;
     border-radius: 50%;
     margin: 5px 8px;
 }
