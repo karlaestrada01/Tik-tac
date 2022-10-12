@@ -31,27 +31,7 @@ function renderFeed() {
     for (let i = 0; i < feedData.length; i++) {
 
         let feedItem = feedData[i]
-        
-        if (i === positionCount) {
-            visibility = `post-visible`
-        }
-        else {
-            visibility = `post-hidden`
-        }
-        if (feedItem.isLiked) {
-            likedHeart = "liked-heart"
-        }
-        else {
-            likedHeart = ""
-        }
-
-        if (feedItem.isSaved) {
-            savedIcon = "fa-solid"
-        }
-        else {
-            savedIcon = "fa-regular"
-        }
-        
+    
         if (feedItem.isShared) {
             sharedIcon = "shared-icon"
             copiedItem = `<p id="reply-message">Copied to clipboard!</p>`
@@ -63,8 +43,68 @@ function renderFeed() {
         }
 
 
-        commentsReplies = ``
-        let count = 0;
+        commentsReplies = returnComments(feedItem)
+        
+        str +=
+            `
+            <div class="post-content ${i === positionCount ? "post-visible" : "post-hidden"}" id="post-content">
+                <div>
+                    <img class="post-video" src=${feedItem.postedVid} alt=${feedItem.altImg}>
+                
+
+                </div>
+                <div class="post-footer">
+                    <img class="profile-pic" src="${feedItem.profilePic}">
+                    <div>
+                        <p>${feedItem.username}</p>
+                        <p id="caption">${feedItem.caption}</p>
+                    </div>
+                </div>
+                <div class="post-icons">
+                    <span class="icon-container">
+                    
+                        <i class="fa-solid fa-heart ${feedItem.isLiked ? "liked-heart" : ""}" data-like='${feedItem.uuid}'></i>${feedItem.likes}
+                    </span>
+                    <span class="icon-container">
+                        <i class="fa-solid fa-comment-dots" data-comment='${feedItem.uuid}'></i>${feedItem.comments.length}
+                    </span>
+                        
+                    <span class="icon-container">
+                        <i class=" fa-bookmark ${feedItem.isSaved ? "fa-solid" : "fa-regular"}" data-bookmark='${feedItem.uuid}'></i>${feedItem.saves}
+                    </span>
+                    
+                    <span class="icon-container">
+                        <i class=" fa-solid fa-share ${sharedIcon} " data-save='${feedItem.uuid}'></i>${feedItem.shares}
+                        
+                    </span>
+  
+                </div>
+                    ${copiedItem}
+                <div class="commentSection hidden" id="comments-${feedItem.uuid}">
+                    ${commentsReplies}
+                </div>   
+            </div>         
+            `
+        postContainer.innerHTML = str;  
+
+        
+        
+    }
+}
+
+renderFeed();
+
+const postArray = document.getElementsByClassName("post-content")
+const postContent = document.getElementById("post-content")
+
+/**
+ * Produces the html of all commenters of the post
+ * @param {*} feedItem the post object
+ * @returns a string of html
+ */
+function returnComments(feedItem) {
+    let commentsReplies = ""
+    let count = 0;
         if (feedItem.comments.length > 0) {
             feedItem.comments.forEach(function (reply) {
                 commentsReplies +=
@@ -99,54 +139,10 @@ function renderFeed() {
                 `
 
         }
-        str +=
-            `
-            <div class="post-content ${visibility}" id="post-content">
-                <div>
-                    <img class="post-video" src=${feedItem.postedVid} alt=${feedItem.altImg}>
-                
 
-                </div>
-                <div class="post-footer">
-                    <img class="profile-pic" src="${feedItem.profilePic}">
-                    <div>
-                        <p>${feedItem.username}</p>
-                        <p id="caption">${feedItem.caption}</p>
-                    </div>
-                </div>
-                <div class="post-icons">
-                    <span class="icon-container">
-                    
-                        <i class="fa-solid fa-heart ${likedHeart}" data-like='${feedItem.uuid}'></i>${feedItem.likes}
-                    </span>
-                    <span class="icon-container">
-                        <i class="fa-solid fa-comment-dots" data-comment='${feedItem.uuid}'></i>${feedItem.comments.length}
-                    </span>
-                        
-                    <span class="icon-container">
-                        <i class=" fa-bookmark ${savedIcon}" data-bookmark='${feedItem.uuid}'></i>${feedItem.saves}
-                    </span>
-                    
-                    <span class="icon-container">
-                        <i class=" fa-solid fa-share ${sharedIcon} " data-save='${feedItem.uuid}'></i>${feedItem.shares}
-                        
-                    </span>
-  
-                </div>
-                    ${copiedItem}
-                <div class="commentSection hidden" id="comments-${feedItem.uuid}">
-                    ${commentsReplies}
-                </div>   
-            </div>         
-            `
-        postContainer.innerHTML = str;  
-    }
+    return commentsReplies
 }
 
-renderFeed();
-
-const postArray = document.getElementsByClassName("post-content")
-const postContent = document.getElementById("post-content")
 /**
  * Removes visibility of each post
  */
@@ -225,6 +221,7 @@ function updateIcons(postID, datasetAttribute) {
     const postObj = feedData.filter(function (post) {
         return post.uuid === postID
     })[0]
+    
     if (datasetAttribute === "like") {
 
         if (postObj.isLiked) {

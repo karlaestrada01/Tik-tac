@@ -5,14 +5,10 @@ body {
 }
 #ticTac-container {
    background-color: black;
-    padding: 20px;
-    margin: 0 auto;
-    
-   
-
+   padding: 20px;
+   margin: 0 auto;
 }
 .post-feed {
-
     background: linear-gradient(white, #8d8ab3);
     border: 2px solid black;
     width: 500px;
@@ -48,7 +44,6 @@ body {
     color: white
 }
 .feed-item {
-   
     margin: 20px auto;
     width: 100%;
     display: flex;
@@ -58,16 +53,12 @@ body {
 }
 
 .post-container {
-
     position: absolute;
     top: 30%;
     transform: translateY(-30%);
-
-
 }
 .post-content {
     box-sizing: border-box;
-    
     width: 400px;
     height: 500px;
     margin: 5px auto;
@@ -80,7 +71,6 @@ body {
     
     
 }
-
 .post-video {
     display: block;
     width: 300px;
@@ -157,10 +147,8 @@ body {
     bottom: 0;
     margin: auto;
     border-radius: 5px;
-
     background-color: #F3F3F7;
 }
-
 .hidden {
     display: none;
    
@@ -172,7 +160,8 @@ body {
 .reply-container img{
     width: 40px;
     border-radius: 50%;
-    margin: 5px 8px;
+    margin: 5px 5px;
+    padding: 5px 6px;
 }
 .reply-container p {
     margin: 5px;
